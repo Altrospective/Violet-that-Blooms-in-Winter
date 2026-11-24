@@ -164,7 +164,7 @@ func _show_line(line: Dictionary) -> void:
 
 	_name_label.text = display_name
 	_name_label.visible = display_name != ""
-	_text_label.modulate = Color(0.78, 0.78, 0.85) if kind == "direction" else Color.WHITE
+	_text_label.modulate = CozyUITheme.COL_SWEATER_TAUPE if kind == "direction" else Color.WHITE
 	_layout_text(side, display_name != "")
 
 	var parsed: Dictionary = _parse_tags(raw)
@@ -297,6 +297,7 @@ func _make_style(fill: Color, border: Color, border_width: int) -> StyleBoxFlat:
 
 func _build_ui() -> void:
 	_root = Control.new()
+	_root.theme = CozyUITheme.build_theme()
 	_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_root)
 	_root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -304,17 +305,19 @@ func _build_ui() -> void:
 	_box = Panel.new()
 	_box.position = BOX_RECT.position
 	_box.size = BOX_RECT.size
-	_box.add_theme_stylebox_override("panel", UiStyle.dark_frame())
+	_box.add_theme_stylebox_override("panel", CozyUITheme.create_dialogue_box())
 	_root.add_child(_box)
 
 	_name_label = Label.new()
 	_name_label.add_theme_font_size_override("font_size", 12)
+	_name_label.add_theme_color_override("font_color", CozyUITheme.COL_LIGHT_TEXT)
 	_box.add_child(_name_label)
 
 	_text_label = RichTextLabel.new()
 	_text_label.bbcode_enabled = false
 	_text_label.scroll_active = false
 	_text_label.add_theme_font_size_override("normal_font_size", 14)
+	_text_label.add_theme_color_override("default_color", CozyUITheme.COL_LIGHT_TEXT)
 	_box.add_child(_text_label)
 
 	_continue_label = Label.new()
@@ -322,14 +325,15 @@ func _build_ui() -> void:
 	_continue_label.position = Vector2(BOX_RECT.size.x - 256.0, BOX_RECT.size.y - 26.0)
 	_continue_label.size = Vector2(240, 16)
 	_continue_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	_continue_label.add_theme_font_size_override("font_size", 9)
+	_continue_label.add_theme_font_size_override("font_size", 8)
+	_continue_label.add_theme_color_override("font_color", CozyUITheme.COL_SWEATER_TAUPE)
 	_continue_label.visible = false
 	_box.add_child(_continue_label)
 
 	for side: String in ["left", "right"]:
 		var frame: Panel = Panel.new()
 		frame.size = Vector2(PORTRAIT_SIZE, PORTRAIT_SIZE)
-		frame.add_theme_stylebox_override("panel", UiStyle.paper_frame())
+		frame.add_theme_stylebox_override("panel", CozyUITheme.create_paper_box())
 		var x: float = PADDING if side == "left" else BOX_RECT.size.x - PADDING - PORTRAIT_SIZE
 		frame.position = Vector2(x, (BOX_RECT.size.y - PORTRAIT_SIZE) * 0.5)
 		frame.visible = false

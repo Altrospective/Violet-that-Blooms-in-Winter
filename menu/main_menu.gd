@@ -7,17 +7,18 @@ extends Control
 const NEXT_SCENE: String = "res://menu/content_note.tscn"
 const MENU_TOP: float = 232.0
 const ROW_HEIGHT: float = 26.0
-const INK: Color = Color(0.25, 0.2, 0.35)
-const INK_SOFT: Color = Color(0.5, 0.45, 0.6)
+const INK: Color = CozyUITheme.COL_INK_TEXT
+const INK_SOFT: Color = CozyUITheme.COL_MUTED_TEXT
 
 # TODO: add "Continue" once saves remember which scene you were in.
 var _items: Array[String] = []
 var _selected: int = 0
-var _labels: Array[Label] = []
+var _buttons: Array[Button] = []
 var _cursor: TextureRect
 
 
 func _ready() -> void:
+	theme = CozyUITheme.build_theme()
 	InputActions.ensure_registered()
 	_items = ["New Game"]
 	if not OS.has_feature("web"):
@@ -54,34 +55,46 @@ func _activate() -> void:
 			get_tree().quit()
 
 
+func _on_menu_button_pressed(index: int) -> void:
+	_selected = index
+	_refresh_menu()
+	_activate()
+
+
 func _refresh_menu() -> void:
-	for i: int in range(_labels.size()):
-		_labels[i].add_theme_color_override("font_color", INK if i == _selected else INK_SOFT)
-	if _cursor != null and not _labels.is_empty():
-		_cursor.position = Vector2(244, _labels[_selected].position.y + 2.0)
+	for i: int in range(_buttons.size()):
+		_buttons[i].add_theme_color_override("font_color", INK if i == _selected else INK_SOFT)
+	if _cursor != null and not _buttons.is_empty():
+		_cursor.position = Vector2(244, MENU_TOP + float(_selected) * ROW_HEIGHT + 2.0)
 
 
 func _build_title() -> void:
 	var banner: Panel = Panel.new()
 	banner.position = Vector2(110, 34)
 	banner.size = Vector2(420, 66)
-	banner.add_theme_stylebox_override("panel", UiStyle.paper_frame())
+	banner.add_theme_stylebox_override("panel", CozyUITheme.create_paper_box())
 	add_child(banner)
 	add_child(_make_centered_label("Violet that Blooms in Winter", 22, 52.0, INK))
-	add_child(_make_centered_label("Lucent Soulworks", 10, 340.0, Color(0.4, 0.35, 0.55)))
+	add_child(_make_centered_label("Lucent Soulworks", 10, 340.0, CozyUITheme.COL_MUTED_TEXT))
 
 
 func _build_menu() -> void:
 	var panel: Panel = Panel.new()
 	panel.position = Vector2(232, MENU_TOP - 20.0)
 	panel.size = Vector2(176, 44.0 + ROW_HEIGHT * float(_items.size()))
-	panel.add_theme_stylebox_override("panel", UiStyle.paper_frame())
+	panel.add_theme_stylebox_override("panel", CozyUITheme.create_paper_box())
 	add_child(panel)
 
 	for i: int in range(_items.size()):
-		var label: Label = _make_centered_label(_items[i], 16, MENU_TOP + float(i) * ROW_HEIGHT, INK_SOFT)
-		add_child(label)
-		_labels.append(label)
+		var button: Button = Button.new()
+		button.text = _items[i]
+		button.position = Vector2(0, 20.0 + float(i) * ROW_HEIGHT)
+		button.size = Vector2(176, ROW_HEIGHT)
+		button.focus_mode = Control.FOCUS_NONE
+		button.add_theme_font_size_override("font_size", 16)
+		button.pressed.connect(_on_menu_button_pressed.bind(i))
+		panel.add_child(button)
+		_buttons.append(button)
 
 	var cursor_texture: Texture2D = UiStyle.cursor_texture()
 	if cursor_texture != null:

@@ -4,6 +4,7 @@ extends CanvasLayer
 @export_multiline var objective_text: String = "Look around, then head to school."
 @export var player_path: NodePath = ^"../World/Player"
 
+var _root: Control
 var _prompt: Label
 
 
@@ -24,38 +25,60 @@ func _ready() -> void:
 
 
 func _build_ui() -> void:
+	_root = Control.new()
+	_root.theme = CozyUITheme.build_theme()
+	_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	add_child(_root)
+
 	var objective_panel: Panel = Panel.new()
 	objective_panel.position = Vector2(12, 30)
-	objective_panel.size = Vector2(300, 42)
-	objective_panel.add_theme_stylebox_override("panel", UiStyle.paper_frame())
-	add_child(objective_panel)
+	objective_panel.size = Vector2(300, 30)
+	objective_panel.add_theme_stylebox_override("panel", CozyUITheme.create_objective_tag())
+	objective_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_root.add_child(objective_panel)
 
 	var objective: Label = Label.new()
 	objective.text = "Objective: %s" % objective_text
-	objective.position = Vector2(8, 4)
-	objective.size = Vector2(284, 34)
-	objective.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	objective.position = Vector2(12, 0)
+	objective.size = Vector2(278, 30)
+	objective.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	objective.autowrap_mode = TextServer.AUTOWRAP_OFF
+	objective.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	objective.add_theme_font_size_override("font_size", 10)
-	objective.add_theme_color_override("font_color", Color(0.25, 0.2, 0.35))
+	objective.add_theme_color_override("font_color", CozyUITheme.COL_INK_TEXT)
 	objective_panel.add_child(objective)
 
 	_prompt = Label.new()
 	_prompt.position = Vector2(0, 222)
 	_prompt.size = Vector2(640, 18)
 	_prompt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_prompt.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_prompt.add_theme_font_size_override("font_size", 10)
 	_prompt.add_theme_color_override("font_color", Color(0.95, 0.9, 0.78))
 	_prompt.visible = false
-	add_child(_prompt)
+	_root.add_child(_prompt)
+
+	var controls_panel: Panel = Panel.new()
+	controls_panel.position = Vector2(96, 330)
+	controls_panel.size = Vector2(448, 22)
+	var pill: StyleBoxFlat = StyleBoxFlat.new()
+	pill.bg_color = Color("#22242E", 0.65)
+	pill.set_corner_radius_all(8)
+	controls_panel.add_theme_stylebox_override("panel", pill)
+	controls_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_root.add_child(controls_panel)
 
 	var controls: Label = Label.new()
 	controls.text = "Move: WASD / arrows   Interact: E / Z / Enter / Space   Pause: Esc"
-	controls.position = Vector2(0, 340)
-	controls.size = Vector2(640, 16)
+	controls.position = Vector2(8, 0)
+	controls.size = Vector2(432, 22)
 	controls.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	controls.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	controls.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	controls.add_theme_font_size_override("font_size", 8)
-	controls.add_theme_color_override("font_color", Color(0.86, 0.85, 0.92))
-	add_child(controls)
+	controls.add_theme_color_override("font_color", CozyUITheme.COL_LIGHT_TEXT)
+	controls_panel.add_child(controls)
 
 
 func _on_prompt_changed(prompt: String) -> void:
