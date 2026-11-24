@@ -1,22 +1,25 @@
 extends CanvasLayer
-## Scene changes with a fade, plus scene names so you always know where you are.
+## Scene changes with a fade, scene names, and a small in-game pause menu.
 ## Registered as the autoload "SceneManager".
-##
-## Every scene can set a `scene_title` (export or plain var on its root script).
-## The title appears briefly in the top-left whenever a scene starts. Press F1 to
-## keep a debug label visible in the bottom-left with the title and file path.
 
 signal scene_changed(path: String)
 
 const FADE_TIME: float = 0.5
 const TITLE_SECONDS: float = 2.2
+const TITLE_SCENE: String = "res://menu/main_menu.tscn"
+const RESTART_SCENE: String = "res://menu/content_note.tscn"
+const PAUSABLE_SCENES: Array[String] = [
+	"res://home/violet_bedroom.tscn",
+	"res://school/room_2b_teaser.tscn",
+]
 
 var is_busy: bool = false
-
 var _fade: ColorRect
 var _title_label: Label
 var _debug_label: Label
 var _title_tween: Tween
+var _pause_layer: Control
+var _resume_button: Button
 
 
 func _ready() -> void:
@@ -36,7 +39,7 @@ func _ready() -> void:
 	_debug_label = _make_label(10, Vector2(8, 338))
 	_debug_label.visible = false
 	add_child(_debug_label)
-
+	_build_pause_menu()
 	_announce_after_startup()
 
 
@@ -63,6 +66,94 @@ func _input(event: InputEvent) -> void:
 		return
 	if key_event.physical_keycode == KEY_F1:
 		_debug_label.visible = not _debug_label.visible
+	elif key_event.physical_keycode == KEY_ESCAPE and _can_pause():
+		get_viewport().set_input_as_handled()
+		if get_tree().paused:
+			_resume_game()
+		else:
+			_pause_game()
+
+
+func _can_pause() -> bool:
+	if is_busy or get_tree().current_scene == null:
+		return false
+	return PAUSABLE_SCENES.has(get_tree().current_scene.scene_file_path)
+
+
+func _pause_game() -> void:
+	_pause_layer.visible = true
+	get_tree().paused = true
+	_resume_button.grab_focus()
+
+
+func _resume_game() -> void:
+	_pause_layer.visible = false
+	get_tree().paused = false
+
+
+func _restart_demo() -> void:
+	_pause_layer.visible = false
+	get_tree().paused = false
+	GameState.reset()
+	change_scene(RESTART_SCENE)
+
+
+func _return_to_title() -> void:
+	_pause_layer.visible = false
+	get_tree().paused = false
+	change_scene(TITLE_SCENE)
+
+
+func _build_pause_menu() -> void:
+	_pause_layer = Control.new()
+	_pause_layer.process_mode = Node.PROCESS_MODE_ALWAYS
+	_pause_layer.visible = false
+	_pause_layer.mouse_filter = Control.MOUSE_FILTER_STOP
+	add_child(_pause_layer)
+	_pause_layer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+
+	var shade: ColorRect = ColorRect.new()
+	shade.color = Color(0.02, 0.02, 0.05, 0.72)
+	shade.mouse_filter = Control.MOUSE_FILTER_STOP
+	_pause_layer.add_child(shade)
+	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+
+	var panel: Panel = Panel.new()
+	panel.position = Vector2(210, 92)
+	panel.size = Vector2(220, 176)
+	panel.add_theme_stylebox_override("panel", UiStyle.dark_frame())
+	_pause_layer.add_child(panel)
+
+	var title: Label = _make_label(18, Vector2.ZERO)
+	title.text = "Paused"
+	title.position = Vector2(0, 16)
+	title.size = Vector2(220, 28)
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	panel.add_child(title)
+
+	var buttons: VBoxContainer = VBoxContainer.new()
+	buttons.position = Vector2(36, 54)
+	buttons.size = Vector2(148, 106)
+	buttons.add_theme_constant_override("separation", 4)
+	panel.add_child(buttons)
+
+	_resume_button = _make_pause_button("Resume")
+	_resume_button.pressed.connect(_resume_game)
+	buttons.add_child(_resume_button)
+	var restart_button: Button = _make_pause_button("Restart demo")
+	restart_button.pressed.connect(_restart_demo)
+	buttons.add_child(restart_button)
+	var title_button: Button = _make_pause_button("Return to title")
+	title_button.pressed.connect(_return_to_title)
+	buttons.add_child(title_button)
+
+
+func _make_pause_button(text: String) -> Button:
+	var button: Button = Button.new()
+	button.text = text
+	button.custom_minimum_size = Vector2(148, 30)
+	button.focus_mode = Control.FOCUS_ALL
+	return button
 
 
 func _announce_after_startup() -> void:
