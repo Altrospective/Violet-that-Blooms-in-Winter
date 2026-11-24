@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://exploration/interaction/interactable_prop.gd" id="1_prop"]
+[ext_resource type="Script" path="res://exploration/placeholder/placeholder_box.gd" id="2_box"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_zone"]
+size = Vector2(32, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_base"]
+size = Vector2(16, 8)
+
+[node name="InteractableProp" type="Area2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_prop")
+
+[node name="Zone" type="CollisionShape2D" parent="."]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_zone")
+
+[node name="Body" type="StaticBody2D" parent="."]
+
+[node name="BaseCollision" type="CollisionShape2D" parent="Body"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_base")
+
+[node name="Box" type="Node2D" parent="."]
+script = ExtResource("2_box")

@@ -1,0 +1,7 @@
+{
+	"violet": { "name": "Violet", "pitch": 1.0, "side": "left", "color": "#8c73bf" },
+	"rey": { "name": "Rey", "pitch": 1.25, "side": "right", "color": "#e0a458" },
+	"karin": { "name": "Karin", "pitch": 1.6, "side": "right", "color": "#d1495b" },
+	"hendra": { "name": "Mr. Hendra", "pitch": 0.7, "side": "right", "color": "#7a8b99" },
+	"counselor": { "name": "Counselor", "pitch": 0.85, "side": "right", "color": "#6aa84f" }
+}

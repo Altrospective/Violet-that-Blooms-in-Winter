@@ -1,0 +1,91 @@
+{
+	"id": "rooftop_violet_rey",
+	"scene": "Rooftop, Act II free period",
+	"status": "sample draft",
+	"lines": [
+		{
+			"type": "direction",
+			"text": "Wind. Violet sits against the fence, sketchbook closed on her knees."
+		},
+		{
+			"speaker": "rey",
+			"portrait": "Warm Smile",
+			"text": "Eh...{pause=0.4} found you. You're hard to find, you know that?"
+		},
+		{
+			"speaker": "violet",
+			"portrait": "Guarded/Cold",
+			"text": "...I wasn't hiding."
+		},
+		{
+			"speaker": "rey",
+			"portrait": "Confused/Awkward",
+			"text": "Oh. Okay. Then... good hiding?"
+		},
+		{
+			"speaker": "violet",
+			"portrait": "Neutral/Quiet",
+			"text": "The door was stuck. You had to push twice."
+		},
+		{
+			"speaker": "rey",
+			"portrait": "Warm Smile",
+			"text": "Ha. Yeah. I'm not great at doors."
+		},
+		{
+			"type": "direction",
+			"text": "Pause. He sits a careful distance away. She notices the distance."
+		},
+		{
+			"speaker": "rey",
+			"portrait": "Concerned",
+			"text": "Can I say something? You don't have to answer. Your drawing, the one with the... the tree with no leaves? It was really good. Like, good good."
+		},
+		{
+			"speaker": "violet",
+			"portrait": "Anxious",
+			"text": "...{pause=0.6}You looked."
+		},
+		{
+			"speaker": "rey",
+			"portrait": "Confused/Awkward",
+			"text": "It was open on your desk! I wasn't trying to... sorry. Sorry. I should've asked."
+		},
+		{
+			"speaker": "violet",
+			"portrait": "Guarded/Cold",
+			"text": "It's fine."
+		},
+		{
+			"speaker": "rey",
+			"portrait": "Concerned",
+			"text": "It's not fine, your face says it's not fine."
+		},
+		{
+			"speaker": "violet",
+			"portrait": "Sad/Teary",
+			"text": "...It's a tree.{pause=0.5} {speed=18}It doesn't have to mean anything.",
+			"note": "barely"
+		},
+		{
+			"type": "direction",
+			"text": "Rey opens his mouth to push. Stops. A beat."
+		},
+		{
+			"speaker": "rey",
+			"portrait": "Serious",
+			"text": "Okay. Then it's just a really good tree."
+		},
+		{
+			"speaker": "violet",
+			"portrait": "Soft Smile",
+			"text": "...Thanks.",
+			"note": "one frame, then gone"
+		}
+	],
+	"pending": [
+		"Karin sample dialogue",
+		"Mr. Hendra sample dialogue",
+		"Counselor sample dialogue"
+	]
+}

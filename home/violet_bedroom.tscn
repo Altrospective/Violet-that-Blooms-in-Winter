@@ -1,0 +1,106 @@
+[gd_scene load_steps=19 format=3]
+
+[ext_resource type="Script" path="res://home/violet_bedroom.gd" id="1_room"]
+[ext_resource type="PackedScene" path="res://exploration/player/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://exploration/interaction/interactable_prop.tscn" id="3_iprop"]
+[ext_resource type="PackedScene" path="res://exploration/interaction/interactable_zone.tscn" id="4_zone"]
+[ext_resource type="PackedScene" path="res://exploration/interaction/door.tscn" id="5_door"]
+[ext_resource type="Script" path="res://home/ceiling_fan.gd" id="6_fan"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/bedroom.png" id="7_bg"]
+[ext_resource type="Texture2D" path="res://assets/props/bed.png" id="8_bed"]
+[ext_resource type="Texture2D" path="res://assets/props/bed_sleeping.png" id="9_sleeping"]
+[ext_resource type="Texture2D" path="res://assets/props/desk.png" id="10_desk"]
+[ext_resource type="Texture2D" path="res://assets/props/wardrobe.png" id="11_wardrobe"]
+[ext_resource type="Texture2D" path="res://assets/props/fan_a.png" id="12_fan_a"]
+[ext_resource type="Texture2D" path="res://assets/props/fan_b.png" id="13_fan_b"]
+
+[sub_resource type="RectangleShape2D" id="Wall_top"]
+size = Vector2(640, 110)
+
+[sub_resource type="RectangleShape2D" id="Wall_bottom"]
+size = Vector2(640, 16)
+
+[sub_resource type="RectangleShape2D" id="Wall_left"]
+size = Vector2(16, 360)
+
+[sub_resource type="RectangleShape2D" id="Wall_right"]
+size = Vector2(16, 360)
+
+[node name="VioletBedroom" type="Node2D"]
+script = ExtResource("1_room")
+room_size = Vector2i(640, 360)
+scene_title = "Violet's Room"
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("7_bg")
+centered = false
+
+[node name="Walls" type="StaticBody2D" parent="."]
+
+[node name="Top" type="CollisionShape2D" parent="Walls"]
+position = Vector2(320, 55)
+shape = SubResource("Wall_top")
+
+[node name="Bottom" type="CollisionShape2D" parent="Walls"]
+position = Vector2(320, 358)
+shape = SubResource("Wall_bottom")
+
+[node name="Left" type="CollisionShape2D" parent="Walls"]
+position = Vector2(8, 180)
+shape = SubResource("Wall_left")
+
+[node name="Right" type="CollisionShape2D" parent="Walls"]
+position = Vector2(632, 180)
+shape = SubResource("Wall_right")
+
+[node name="World" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="World" instance=ExtResource("2_player")]
+position = Vector2(110, 196)
+
+[node name="Wardrobe" parent="World" instance=ExtResource("3_iprop")]
+position = Vector2(44, 126)
+inspect_lines = PackedStringArray("Her school uniform hangs inside.")
+sprite_texture = ExtResource("11_wardrobe")
+body_size = Vector2(36, 10)
+
+[node name="Bed" parent="World" instance=ExtResource("3_iprop")]
+position = Vector2(110, 170)
+inspect_lines = PackedStringArray("The blanket is still warm.", "...Five more minutes. No.")
+sprite_texture = ExtResource("8_bed")
+body_size = Vector2(60, 16)
+
+[node name="BedSleeper" type="Sprite2D" parent="World"]
+position = Vector2(110, 171)
+texture = ExtResource("9_sleeping")
+centered = false
+offset = Vector2(-32, -40)
+
+[node name="Desk" parent="World" instance=ExtResource("3_iprop")]
+position = Vector2(545, 138)
+inspect_lines = PackedStringArray("Her sketchbook, closed.", "She doesn't open it.")
+sprite_texture = ExtResource("10_desk")
+body_size = Vector2(50, 12)
+
+[node name="CeilingFan" type="Sprite2D" parent="."]
+position = Vector2(320, 0)
+texture = ExtResource("12_fan_a")
+centered = false
+offset = Vector2(-16, 0)
+script = ExtResource("6_fan")
+frame_a = ExtResource("12_fan_a")
+frame_b = ExtResource("13_fan_b")
+
+[node name="WindowZone" parent="." instance=ExtResource("4_zone")]
+position = Vector2(320, 120)
+scale = Vector2(2.5, 1)
+inspect_lines = PackedStringArray("Rain again.", "The street looks like it's been erased with a grey pencil.")
+
+[node name="DoorZone" parent="." instance=ExtResource("5_door")]
+position = Vector2(458, 120)
+inspect_lines = PackedStringArray("...School.")
+target_scene = "res://school/room_2b_teaser.tscn"
+
+[node name="WakeSpot" type="Marker2D" parent="."]
+position = Vector2(110, 196)
