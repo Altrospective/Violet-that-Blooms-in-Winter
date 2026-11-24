@@ -62,14 +62,14 @@ position = Vector2(110, 196)
 
 [node name="Wardrobe" parent="World" instance=ExtResource("3_iprop")]
 position = Vector2(44, 126)
-inspect_lines = PackedStringArray("Her school uniform hangs inside.")
+inspect_lines = PackedStringArray("My uniform hangs behind the wardrobe door.", "I ironed it last night. One thing I could finish early.")
 prompt_text = "Inspect: Uniform"
 sprite_texture = ExtResource("11_wardrobe")
 body_size = Vector2(36, 10)
 
 [node name="Bed" parent="World" instance=ExtResource("3_iprop")]
 position = Vector2(110, 170)
-inspect_lines = PackedStringArray("The blanket is still warm.", "...Five more minutes. No.")
+inspect_lines = PackedStringArray("The blanket is warm. Circles within circles, indigo and cream.", "Five more minutes. No.")
 prompt_text = "Inspect: Bed"
 sprite_texture = ExtResource("8_bed")
 body_size = Vector2(60, 16)
@@ -82,7 +82,7 @@ offset = Vector2(-32, -40)
 
 [node name="Desk" parent="World" instance=ExtResource("3_iprop")]
 position = Vector2(545, 138)
-inspect_lines = PackedStringArray("Her sketchbook, closed.", "She doesn't open it.")
+inspect_lines = PackedStringArray("The sketchbook has a faded violet cover.", "I have not opened it since Friday. I put it in my bag anyway.")
 prompt_text = "Inspect: Sketchbook"
 sprite_texture = ExtResource("10_desk")
 body_size = Vector2(50, 12)
@@ -99,13 +99,13 @@ frame_b = ExtResource("13_fan_b")
 [node name="WindowZone" parent="." instance=ExtResource("4_zone")]
 position = Vector2(320, 120)
 scale = Vector2(2.5, 1)
-inspect_lines = PackedStringArray("Rain again.", "The street looks like it's been erased with a grey pencil.")
+inspect_lines = PackedStringArray("Rain since Thursday. It runs down the louvres.", "The street looks erased with a grey pencil, and only half redrawn.")
 prompt_text = "Inspect: Window"
 
 [node name="DoorZone" parent="." instance=ExtResource("5_door")]
 position = Vector2(458, 120)
-inspect_lines = PackedStringArray("...School.")
-prompt_text = "Enter: School"
+inspect_lines = PackedStringArray("Rice and a cold egg wait under a plastic cover. I eat, rinse the plate, and put on my shoes.", "The bus is late. Wet shoes, rain on glass, the city smearing past.", "A few steps. A stop. Monday carries me to school.")
+prompt_text = "Leave for school"
 target_scene = "res://school/room_2b_teaser.tscn"
 
 [node name="WakeSpot" type="Marker2D" parent="."]
@@ -113,4 +113,4 @@ position = Vector2(110, 196)
 
 [node name="GameHud" type="CanvasLayer" parent="."]
 script = ExtResource("14_hud")
-objective_text = "Look around, then head to school."
+objective_text = "Get ready, then leave for school. Inspect anything you like."

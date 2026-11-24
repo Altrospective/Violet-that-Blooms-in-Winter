@@ -5,7 +5,7 @@ extends Control
 @export var scene_title: String = "Content Note"
 
 const NEXT_SCENE: String = "res://home/violet_bedroom.tscn"
-const NOTE_TEXT: String = "This game contains themes of bullying, abuse, grief, and withdrawal.\n\nPlease look after yourself while you play, and take a break \n\nwhenever you need one."
+const NOTE_TEXT: String = "This chapter contains bullying, grief, and emotional withdrawal.\n\nPlease look after yourself while you play, and take a break whenever you need one."
 
 var _prompt: Label
 var _time: float = 0.0

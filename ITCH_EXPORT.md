@@ -16,7 +16,8 @@
 3. Embed options: viewport size 1280 x 720 (the game's 2x window), enable the fullscreen button.
    Leave "SharedArrayBuffer support" off. Do not enable mobile friendly (keyboard controls only).
 4. Save, then check the page in the browser before publishing. Test: menu, content note,
-   wake-up, inspect objects, pause/restart, door, teaser, demo-complete screen, return to title.
+   wake-up, inspect objects, pause/restart, school/classroom, memory sequence, stairwell,
+   evening sketchbook scene, demo-complete screen, return to title.
 
 ## Page text (draft: edit freely)
 **Title:** Violet that Blooms in Winter (Demo)
@@ -28,10 +29,11 @@ psychological, 2D, singleplayer, Godot
 
 **Description:**
 Violet that Blooms in Winter is a narrative RPG about a withdrawn girl, a rainy school, and a dream
-world where everything is perfect. This is an early prototype demo: it covers a rainy Monday
-morning at home and a first look at Room 2-B. Art is placeholder.
+world where everything is perfect. This demo adapts Chapter One, "Frost on the Glass": a rainy
+Monday at home and school, Violet's first Inner Winter memory, and a small moment of connection.
+It ends with Chapter One; later chapters are not included. Some scene illustrations are placeholders.
 
-**Content note:** Contains themes of bullying, abuse, grief, and withdrawal.
+**Content note:** This chapter contains bullying, grief, and emotional withdrawal.
 
 **Controls:** WASD or arrow keys to move. E, Z, Enter, or Space to interact and advance text.
 Escape pauses the demo. Gamepad also works (stick or d-pad, A to interact, Start to pause).

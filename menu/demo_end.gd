@@ -24,8 +24,9 @@ func _ready() -> void:
 	add_child(frame)
 
 	add_child(_make_label("Demo Complete", 22, 100.0, Color(0.85, 0.8, 0.95)))
-	add_child(_make_label("Thank you for playing.", 14, 148.0, Color(0.8, 0.8, 0.9)))
-	add_child(_make_label("Violet that Blooms in Winter", 12, 200.0, Color(0.7, 0.62, 0.85)))
+	add_child(_make_label("Chapter One: Frost on the Glass", 12, 146.0, Color(0.8, 0.8, 0.9)))
+	add_child(_make_label("Thank you for playing.", 12, 168.0, Color(0.8, 0.8, 0.9)))
+	add_child(_make_label("This demo ends here.", 10, 200.0, Color(0.7, 0.62, 0.85)))
 	add_child(_make_label("Lucent Soulworks", 10, 218.0, Color(0.6, 0.6, 0.75)))
 
 	_prompt = _make_label("Press E, Z, Enter, or Space to return to the title", 10, 300.0, Color(0.7, 0.7, 0.8))

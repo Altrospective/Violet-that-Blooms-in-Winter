@@ -1,13 +1,12 @@
 extends Room
-## Prototype: Violet wakes up at home on a rainy morning. A short narrated wake-up,
-## then free movement around the bedroom. The door leads on to the next scene.
-## All narration text here is placeholder writing: edit WAKE_LINES and the
-## inspect_lines on each object in the scene.
+## Chapter One opens in Violet's bedroom on a rainy Monday morning.
 
 const WAKE_LINES: Array = [
-	{"type": "direction", "text": "Rain against the window. Grey light on the ceiling."},
-	{"type": "narration", "text": "The alarm has been ringing for a while."},
-	{"type": "narration", "text": "...Another Monday."},
+	{"type": "direction", "text": "6:40. Monday. Rain ticks against the louvred window."},
+	{"type": "narration", "text": "The alarm had been ringing long enough to visit the dream first."},
+	{"type": "narration", "text": "The fan turns. The house hums its familiar quiet."},
+	{"type": "narration", "text": "Five more minutes, I think. Then: No."},
+	{"type": "narration", "text": "The day will not start until I finish getting ready. I am in no hurry."},
 ]
 
 @onready var _bed_sleeper: Node2D = $World/BedSleeper
@@ -18,6 +17,9 @@ func _ready() -> void:
 	super._ready()
 	_build_rain()
 	var player: Player = get_node(player_path) as Player
+	if player == null:
+		push_error("VioletBedroom: no Player found at '%s'" % player_path)
+		return
 	player.hide()
 	player.movement_locked = true
 	await get_tree().create_timer(1.4).timeout
