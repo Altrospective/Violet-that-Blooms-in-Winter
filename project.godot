@@ -24,6 +24,7 @@ config/features=PackedStringArray("4.7", "GL Compatibility")
 GameState="*res://core/state/game_state.gd"
 SceneManager="*res://core/scene/scene_manager.gd"
 Dialogue="*res://dialogue/dialogue.gd"
+PauseMenu="*res://core/ui/pause_menu.gd"
 
 [display]
 

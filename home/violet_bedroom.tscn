@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" path="res://assets/props/wardrobe.png" id="11_wardrobe"]
 [ext_resource type="Texture2D" path="res://assets/props/fan_a.png" id="12_fan_a"]
 [ext_resource type="Texture2D" path="res://assets/props/fan_b.png" id="13_fan_b"]
+[ext_resource type="Script" path="res://core/ui/game_hud.gd" id="14_hud"]
 
 [sub_resource type="RectangleShape2D" id="Wall_top"]
 size = Vector2(640, 110)
@@ -62,12 +63,14 @@ position = Vector2(110, 196)
 [node name="Wardrobe" parent="World" instance=ExtResource("3_iprop")]
 position = Vector2(44, 126)
 inspect_lines = PackedStringArray("Her school uniform hangs inside.")
+prompt_text = "Inspect: Uniform"
 sprite_texture = ExtResource("11_wardrobe")
 body_size = Vector2(36, 10)
 
 [node name="Bed" parent="World" instance=ExtResource("3_iprop")]
 position = Vector2(110, 170)
 inspect_lines = PackedStringArray("The blanket is still warm.", "...Five more minutes. No.")
+prompt_text = "Inspect: Bed"
 sprite_texture = ExtResource("8_bed")
 body_size = Vector2(60, 16)
 
@@ -80,6 +83,7 @@ offset = Vector2(-32, -40)
 [node name="Desk" parent="World" instance=ExtResource("3_iprop")]
 position = Vector2(545, 138)
 inspect_lines = PackedStringArray("Her sketchbook, closed.", "She doesn't open it.")
+prompt_text = "Inspect: Sketchbook"
 sprite_texture = ExtResource("10_desk")
 body_size = Vector2(50, 12)
 
@@ -96,11 +100,17 @@ frame_b = ExtResource("13_fan_b")
 position = Vector2(320, 120)
 scale = Vector2(2.5, 1)
 inspect_lines = PackedStringArray("Rain again.", "The street looks like it's been erased with a grey pencil.")
+prompt_text = "Inspect: Window"
 
 [node name="DoorZone" parent="." instance=ExtResource("5_door")]
 position = Vector2(458, 120)
 inspect_lines = PackedStringArray("...School.")
+prompt_text = "Enter: School"
 target_scene = "res://school/room_2b_teaser.tscn"
 
 [node name="WakeSpot" type="Marker2D" parent="."]
 position = Vector2(110, 196)
+
+[node name="GameHud" type="CanvasLayer" parent="."]
+script = ExtResource("14_hud")
+objective_text = "Look around, then head to school."

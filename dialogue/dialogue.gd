@@ -318,8 +318,11 @@ func _build_ui() -> void:
 	_box.add_child(_text_label)
 
 	_continue_label = Label.new()
-	_continue_label.text = "v"
-	_continue_label.position = Vector2(BOX_RECT.size.x - 40.0, BOX_RECT.size.y - 36.0)
+	_continue_label.text = "E / Z / Enter / Space: continue"
+	_continue_label.position = Vector2(BOX_RECT.size.x - 256.0, BOX_RECT.size.y - 26.0)
+	_continue_label.size = Vector2(240, 16)
+	_continue_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_continue_label.add_theme_font_size_override("font_size", 9)
 	_continue_label.visible = false
 	_box.add_child(_continue_label)
 

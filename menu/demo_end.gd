@@ -23,7 +23,7 @@ func _ready() -> void:
 	frame.add_theme_stylebox_override("panel", UiStyle.dark_frame())
 	add_child(frame)
 
-	add_child(_make_label("End of demo", 22, 100.0, Color(0.85, 0.8, 0.95)))
+	add_child(_make_label("Demo Complete", 22, 100.0, Color(0.85, 0.8, 0.95)))
 	add_child(_make_label("Thank you for playing.", 14, 148.0, Color(0.8, 0.8, 0.9)))
 	add_child(_make_label("Violet that Blooms in Winter", 12, 200.0, Color(0.7, 0.62, 0.85)))
 	add_child(_make_label("Lucent Soulworks", 10, 218.0, Color(0.6, 0.6, 0.75)))

@@ -7,6 +7,11 @@ signal interacted(by: Node)
 
 @export_file("*.json") var dialogue_file: String = ""
 @export var inspect_lines: PackedStringArray = PackedStringArray()
+@export var prompt_text: String = ""
+
+
+func get_prompt_text() -> String:
+	return prompt_text if not prompt_text.is_empty() else "Inspect: %s" % name
 
 
 func interact(by: Node) -> void:

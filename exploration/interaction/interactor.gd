@@ -3,16 +3,30 @@ extends Area2D
 ## Sits in front of Violet, following her 8-direction facing. Press interact to use the
 ## nearest Interactable overlapping this area.
 
+signal prompt_changed(prompt: String)
+
 @export var reach: float = 14.0
 @export var center_offset: Vector2 = Vector2(0, -8)
 
 @onready var _player: Player = get_parent() as Player
+
+var _current_prompt: String = ""
 
 
 func _ready() -> void:
 	InputActions.ensure_registered()
 	_player.facing_changed.connect(_on_facing_changed)
 	_place(_player.facing)
+
+
+func _process(_delta: float) -> void:
+	var target: Interactable = null
+	if _player.visible and not _player.movement_locked:
+		target = _nearest_interactable()
+	var prompt: String = target.get_prompt_text() if target != null else ""
+	if prompt != _current_prompt:
+		_current_prompt = prompt
+		prompt_changed.emit(prompt)
 
 
 func _unhandled_input(event: InputEvent) -> void:
