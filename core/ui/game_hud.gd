@@ -63,8 +63,10 @@ func _build_ui() -> void:
 	controls_panel.position = Vector2(96, 330)
 	controls_panel.size = Vector2(448, 22)
 	var pill: StyleBoxFlat = StyleBoxFlat.new()
-	pill.bg_color = Color("#22242E", 0.65)
-	pill.set_corner_radius_all(8)
+	pill.bg_color = Color(CozyUITheme.COL_DARK_SLATE, 0.84)
+	pill.border_color = Color(CozyUITheme.COL_SWEATER_TAUPE, 0.7)
+	pill.set_border_width_all(1)
+	pill.set_corner_radius_all(0)
 	controls_panel.add_theme_stylebox_override("panel", pill)
 	controls_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_root.add_child(controls_panel)

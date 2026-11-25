@@ -11,25 +11,26 @@ var _time: float = 0.0
 
 func _ready() -> void:
 	InputActions.ensure_registered()
+	theme = CozyUITheme.build_theme()
 
 	var background: ColorRect = ColorRect.new()
-	background.color = Color(0.1, 0.08, 0.18)
+	background.color = CozyUITheme.COL_DARK_SLATE
 	add_child(background)
 	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 
 	var frame: Panel = Panel.new()
 	frame.position = Vector2(140, 76)
 	frame.size = Vector2(360, 178)
-	frame.add_theme_stylebox_override("panel", UiStyle.dark_frame())
+	frame.add_theme_stylebox_override("panel", CozyUITheme.create_paper_box())
 	add_child(frame)
 
-	add_child(_make_label("Demo Complete", 22, 100.0, Color(0.85, 0.8, 0.95)))
-	add_child(_make_label("Chapter One: Frost on the Glass", 12, 146.0, Color(0.8, 0.8, 0.9)))
-	add_child(_make_label("Thank you for playing.", 12, 168.0, Color(0.8, 0.8, 0.9)))
-	add_child(_make_label("This demo ends here.", 10, 200.0, Color(0.7, 0.62, 0.85)))
-	add_child(_make_label("Lucent Soulworks", 10, 218.0, Color(0.6, 0.6, 0.75)))
+	add_child(_make_label("Demo Complete", 22, 100.0, CozyUITheme.COL_INK_TEXT))
+	add_child(_make_label("Chapter One: Frost on the Glass", 12, 146.0, CozyUITheme.COL_UNIFORM_BLUE))
+	add_child(_make_label("Thank you for playing.", 12, 168.0, CozyUITheme.COL_INK_TEXT))
+	add_child(_make_label("This demo ends here.", 10, 200.0, CozyUITheme.COL_VIOLET_ACCENT))
+	add_child(_make_label("Lucent Soulworks", 10, 218.0, CozyUITheme.COL_MUTED_TEXT))
 
-	_prompt = _make_label("Press E, Z, Enter, or Space to return to the title", 10, 300.0, Color(0.7, 0.7, 0.8))
+	_prompt = _make_label("Press E, Z, Enter, or Space to return to the title", 10, 300.0, CozyUITheme.COL_PAPER_BG)
 	add_child(_prompt)
 
 

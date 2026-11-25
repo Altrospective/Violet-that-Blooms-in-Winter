@@ -13,16 +13,17 @@ var _time: float = 0.0
 
 func _ready() -> void:
 	InputActions.ensure_registered()
+	theme = CozyUITheme.build_theme()
 
 	var background: ColorRect = ColorRect.new()
-	background.color = Color(0.05, 0.05, 0.09)
+	background.color = CozyUITheme.COL_DARK_SLATE
 	add_child(background)
 	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 
 	var frame: Panel = Panel.new()
 	frame.position = Vector2(60, 84)
 	frame.size = Vector2(520, 180)
-	frame.add_theme_stylebox_override("panel", UiStyle.dark_frame())
+	frame.add_theme_stylebox_override("panel", CozyUITheme.create_paper_box())
 	add_child(frame)
 
 	var note: Label = Label.new()
@@ -32,6 +33,7 @@ func _ready() -> void:
 	note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	note.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	note.add_theme_font_size_override("font_size", 14)
+	note.add_theme_color_override("font_color", CozyUITheme.COL_INK_TEXT)
 	add_child(note)
 
 	_prompt = Label.new()
@@ -40,7 +42,7 @@ func _ready() -> void:
 	_prompt.size = Vector2(640, 20)
 	_prompt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_prompt.add_theme_font_size_override("font_size", 10)
-	_prompt.add_theme_color_override("font_color", Color(0.7, 0.7, 0.8))
+	_prompt.add_theme_color_override("font_color", CozyUITheme.COL_PAPER_BG)
 	add_child(_prompt)
 
 

@@ -9,6 +9,7 @@ const BEDROOM_TEXTURE_PATH: String = "res://assets/backgrounds/bedroom.png"
 const DESK_TEXTURE_PATH: String = "res://assets/props/desk.png"
 const STUDENT_TEXTURE_PATH: String = "res://assets/sprites/student_short.png"
 const VIOLET_TEXTURE_PATH: String = "res://assets/sprites/violet_sheet.png"
+const VIOLET_SKETCHING_TEXTURE: Texture2D = preload("res://assets/sprites/violet_sketching.png")
 
 const CLASSROOM_LINES: Array = [
 	{"type": "direction", "text": "The flag ceremony is cancelled. Rain fogs the windows of Room 2-B."},
@@ -174,7 +175,12 @@ func _build_evening() -> void:
 	# TODO: replace the paper and line drawing with the finished sketchbook art.
 	_add_rect(_evening_root, Vector2(531, 112), Vector2(24, 30), Color(0.91, 0.86, 0.73))
 	_add_line(_evening_root, PackedVector2Array([Vector2(536, 121), Vector2(544, 116), Vector2(550, 124), Vector2(544, 132)]), Color(0.31, 0.28, 0.4), 1.0)
-	_add_violet(_evening_root, Vector2(492, 183), 2)
+	var sketching_sprite: Sprite2D = Sprite2D.new()
+	sketching_sprite.texture = VIOLET_SKETCHING_TEXTURE
+	sketching_sprite.centered = false
+	sketching_sprite.offset = Vector2(-24, -40)
+	sketching_sprite.position = Vector2(492, 204)
+	_evening_root.add_child(sketching_sprite)
 
 
 func _add_rect(parent: Node2D, pos: Vector2, size: Vector2, color: Color) -> ColorRect:
@@ -204,7 +210,7 @@ func _add_violet(parent: Node2D, feet: Vector2, row: int) -> Sprite2D:
 		push_error("Room2B: missing Violet sprite '%s'" % VIOLET_TEXTURE_PATH)
 		return sprite
 	sprite.texture = texture
-	sprite.hframes = 3
+	sprite.hframes = 4
 	sprite.vframes = 4
 	sprite.frame_coords = Vector2i(0, row)
 	sprite.centered = false

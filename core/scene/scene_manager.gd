@@ -16,6 +16,7 @@ const PAUSABLE_SCENES: Array[String] = [
 var is_busy: bool = false
 var _fade: ColorRect
 var _title_label: Label
+var _title_card: Panel
 var _debug_label: Label
 var _title_tween: Tween
 var _pause_layer: Control
@@ -32,8 +33,21 @@ func _ready() -> void:
 	add_child(_fade)
 	_fade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 
-	_title_label = _make_label(14, Vector2(12, 10))
+	_title_card = Panel.new()
+	_title_card.position = Vector2(8, 6)
+	_title_card.size = Vector2(188, 30)
+	_title_card.add_theme_stylebox_override("panel", CozyUITheme.create_objective_tag())
+	_title_card.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_title_card.modulate.a = 0.0
+	add_child(_title_card)
+
+	_title_label = _make_label(12, Vector2(18, 12))
+	_title_label.size = Vector2(172, 20)
+	_title_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	_title_label.modulate.a = 0.0
+	_title_label.add_theme_color_override("font_color", CozyUITheme.COL_INK_TEXT)
+	_title_label.add_theme_color_override("font_outline_color", Color.TRANSPARENT)
+	_title_label.add_theme_constant_override("outline_size", 0)
 	add_child(_title_label)
 
 	_debug_label = _make_label(10, Vector2(8, 338))
@@ -109,11 +123,12 @@ func _build_pause_menu() -> void:
 	_pause_layer.process_mode = Node.PROCESS_MODE_ALWAYS
 	_pause_layer.visible = false
 	_pause_layer.mouse_filter = Control.MOUSE_FILTER_STOP
+	_pause_layer.theme = CozyUITheme.build_theme()
 	add_child(_pause_layer)
 	_pause_layer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 
 	var shade: ColorRect = ColorRect.new()
-	shade.color = Color(0.02, 0.02, 0.05, 0.72)
+	shade.color = Color(CozyUITheme.COL_DARK_SLATE, 0.82)
 	shade.mouse_filter = Control.MOUSE_FILTER_STOP
 	_pause_layer.add_child(shade)
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -121,7 +136,7 @@ func _build_pause_menu() -> void:
 	var panel: Panel = Panel.new()
 	panel.position = Vector2(210, 92)
 	panel.size = Vector2(220, 176)
-	panel.add_theme_stylebox_override("panel", UiStyle.dark_frame())
+	panel.add_theme_stylebox_override("panel", CozyUITheme.create_dark_box())
 	_pause_layer.add_child(panel)
 
 	var title: Label = _make_label(18, Vector2.ZERO)
@@ -129,6 +144,7 @@ func _build_pause_menu() -> void:
 	title.position = Vector2(0, 16)
 	title.size = Vector2(220, 28)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.add_theme_color_override("font_color", CozyUITheme.COL_LIGHT_TEXT)
 	panel.add_child(title)
 
 	var buttons: VBoxContainer = VBoxContainer.new()
@@ -174,10 +190,13 @@ func _announce_current_scene() -> void:
 	if _title_tween != null:
 		_title_tween.kill()
 	_title_label.modulate.a = 0.0
+	_title_card.modulate.a = 0.0
 	_title_tween = create_tween()
 	_title_tween.tween_property(_title_label, "modulate:a", 1.0, 0.4)
+	_title_tween.parallel().tween_property(_title_card, "modulate:a", 1.0, 0.4)
 	_title_tween.tween_interval(TITLE_SECONDS)
 	_title_tween.tween_property(_title_label, "modulate:a", 0.0, 0.6)
+	_title_tween.parallel().tween_property(_title_card, "modulate:a", 0.0, 0.6)
 
 
 func _fade_to(alpha: float) -> void:
@@ -190,7 +209,7 @@ func _make_label(font_size: int, pos: Vector2) -> Label:
 	var label: Label = Label.new()
 	label.position = pos
 	label.add_theme_font_size_override("font_size", font_size)
-	label.add_theme_color_override("font_color", Color(1, 1, 1))
+	label.add_theme_color_override("font_color", CozyUITheme.COL_LIGHT_TEXT)
 	label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
-	label.add_theme_constant_override("outline_size", 3)
+	label.add_theme_constant_override("outline_size", 2)
 	return label

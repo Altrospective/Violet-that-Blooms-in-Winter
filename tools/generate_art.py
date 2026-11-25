@@ -2,14 +2,13 @@
 Requires Pillow. Edit the palettes and shapes in tools/make_*.py to restyle the art."""
 import os, sys
 sys.path.insert(0, os.path.dirname(__file__))
-from make_characters import violet_sheet, silhouette
+from make_characters import silhouette
 from make_world import *
 
 ROOT = os.path.join(os.path.dirname(__file__), "..", "assets")
 def save(im, *parts):
     path = os.path.join(ROOT, *parts); os.makedirs(os.path.dirname(path), exist_ok=True); im.save(path); print("wrote", os.path.relpath(path))
 
-save(violet_sheet(), "sprites", "violet_sheet.png")
 save(silhouette(True), "sprites", "student_long.png")
 save(silhouette(False), "sprites", "student_short.png")
 save(violet_flower(), "sprites", "violet_flower.png")

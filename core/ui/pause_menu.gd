@@ -59,17 +59,22 @@ func _return_to_title() -> void:
 
 
 func _build_menu() -> void:
+	var theme_root: Control = Control.new()
+	theme_root.theme = CozyUITheme.build_theme()
+	theme_root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	add_child(theme_root)
+
 	_overlay = ColorRect.new()
-	_overlay.color = Color(0.03, 0.03, 0.08, 0.78)
+	_overlay.color = Color(CozyUITheme.COL_DARK_SLATE, 0.82)
 	_overlay.mouse_filter = Control.MOUSE_FILTER_STOP
 	_overlay.visible = false
 	_overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(_overlay)
+	theme_root.add_child(_overlay)
 
 	var panel: Panel = Panel.new()
 	panel.position = Vector2(188, 74)
 	panel.size = Vector2(264, 212)
-	panel.add_theme_stylebox_override("panel", UiStyle.dark_frame())
+	panel.add_theme_stylebox_override("panel", CozyUITheme.create_dark_box())
 	_overlay.add_child(panel)
 
 	var heading: Label = Label.new()
@@ -78,6 +83,7 @@ func _build_menu() -> void:
 	heading.size = Vector2(264, 28)
 	heading.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	heading.add_theme_font_size_override("font_size", 20)
+	heading.add_theme_color_override("font_color", CozyUITheme.COL_LIGHT_TEXT)
 	panel.add_child(heading)
 
 	_resume_button = _make_button("Resume", 64)

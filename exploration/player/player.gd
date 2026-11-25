@@ -32,7 +32,7 @@ var facing: Vector2 = Vector2.DOWN
 var _phase: Phase = Phase.IDLE
 var _phase_left: float = 0.0
 var _step_dir: Vector2 = Vector2.ZERO
-var _walk_frame: int = 1
+var _walk_frame: int = 0
 var _speed_scale: float = 1.0
 
 @onready var camera: RoomCamera = $Camera
@@ -82,7 +82,7 @@ func _physics_process(delta: float) -> void:
 func _begin_step(direction: Vector2) -> void:
 	_step_dir = direction.normalized()
 	_update_facing(_step_dir)
-	_walk_frame = 3 - _walk_frame  # alternates between frame 1 and frame 2
+	_walk_frame = (_walk_frame % 3) + 1
 	_apply_frame(_walk_frame)
 	_phase = Phase.STEP
 	_phase_left = step_time
